@@ -240,8 +240,11 @@ def _load_model(stdout):
     )
     heartbeat.start()
     try:
+        from api.routers.setup.models import installed_snapshot_path
+
+        # Match the in-process loader: installed weights never need a Hub lookup.
         _model = OmniVoice.from_pretrained(
-            checkpoint, device_map=device,
+            installed_snapshot_path(checkpoint) or checkpoint, device_map=device,
             dtype=getattr(torch, tts_dtype_name(device)), load_asr=preload_asr,
         )
     finally:

@@ -111,6 +111,8 @@ The env var overrides the persisted UI choice.
   [expressive-speech.md](../expressive-speech.md).
 - Voice design works from attributes (gender, age, pitch, whisper, English
   accents, Chinese dialects) via the Design tab — no reference audio needed.
+- Complete catalogue installs load from their local snapshot directory without a
+  Hugging Face metadata lookup, including the crash-isolated MPS engine.
 - Optional FlashInfer acceleration on CUDA: set `OMNIVOICE_FLASHINFER=1`
   (or `=graph` for CUDA-graph capture, best for one render at a time) after
   installing the `flashinfer-python` package — see

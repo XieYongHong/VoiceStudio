@@ -2660,8 +2660,11 @@ def _load_model_sync():
         _preflight_truncated_weights(checkpoint)
 
         def _load():
+            from api.routers.setup.models import installed_snapshot_path
+
+            # A repo id makes transformers query the Hub even with cached weights.
             return VoiceStudio.from_pretrained(
-                checkpoint, device_map=device,
+                installed_snapshot_path(checkpoint) or checkpoint, device_map=device,
                 dtype=getattr(torch, tts_dtype_name(device)), load_asr=False,
             )
 
